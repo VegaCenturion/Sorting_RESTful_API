@@ -1,22 +1,10 @@
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, HasMany, HasOne, belongsTo, column, hasMany, hasOne } from '@ioc:Adonis/Lucid/Orm'
-import aluno from './Aluno'
-import Aluno from './Aluno'
-import Professor from './Professor'
-export default class Sala extends BaseModel {
-  
-  
-  @hasOne(()=> Professor)
-  public Professor: HasOne<typeof Professor> 
-  
-  @belongsTo(() => Professor)
-  public sala: BelongsTo<typeof Professor>
+import { BaseModel, column} from '@ioc:Adonis/Lucid/Orm'
 
-  @hasMany(() => Aluno)
-  public Alunos: HasMany<typeof aluno>
-  
+export default class Sala extends BaseModel {
+
   @column({ isPrimary: true })
-  public salaId: number
+  public id: number
 
   @column()
   public numero: string
@@ -27,12 +15,21 @@ export default class Sala extends BaseModel {
   @column()
   public dispo: number
 
-  @column()
-  public criador: number
-
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 }
+
+
+/* @hasOne(()=> Professor)
+  public Professor: HasOne<typeof Professor> 
+  
+  @belongsTo(() => Professor)
+  public sala: BelongsTo<typeof Professor>
+
+  @hasMany(() => Aluno, {
+    foreignKey: 'matricula'
+    })
+  public Alunos: HasMany<typeof aluno>*/

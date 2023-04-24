@@ -1,7 +1,5 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Sala from 'App/Models/Sala'
-import aluno from 'app/Models/Aluno'
-import Aluno from 'app/Models/Aluno'
 
     export default class SalasController {
         public async store({request, response}: HttpContextContract){
@@ -9,14 +7,13 @@ import Aluno from 'app/Models/Aluno'
             const numero = request.body()
             const capacidade = request.body()
             const dispo = request.body()
-            const criador = request.body()
     
-            const sala = await Sala.create(body)
+            const salas = await Sala.create(body)
             response.status(201)
     
             return{
-            Message:'Sala inserido com sucesso',
-            data: sala
+            Message:'Sala cadastrada com sucesso',
+            data: Sala
             }
         }
 
@@ -44,34 +41,38 @@ import Aluno from 'app/Models/Aluno'
 
             const body = request.body()
     
-            const salas = await Sala.findOrFail(params.id)
+            const sala = await Sala.findOrFail(params.id)
     
-            salas.numero = body.nome
-            salas.capacidade = body.capacidade
-            salas.dispo = body.dispo
-            salas.criador = body.criador
-            
-            await salas.save()
+            sala.numero = body.numero
+            sala.capacidade = body.capacidade
+            sala.dispo = body.dispo
+    
+            await sala.save()
     
             return{
                 msg:'Cadastro atualizado com sucesso',
-                data: salas,
+                data: sala,
             }
             
         }
+/*
         public async storeAlunos({params, request, response}:HttpContextContract){
-            const dispo = request.body()
-            const capacidade = request.body()
+            const dispo = params.dispo
+            const capacidade = params.capacidade
             const body = request.body()
-            const nome = request.body()
-            const email = request.body()
-            const matricula = request.body()
-            const nascimento = request.body()
+           const matricula = params.matricula
+            const nome = params.nome
+            const email = params.email
+            const nascimento = params.nascimento
+            
+            //não sei se precisa desses campos ou se precisa só do body
+            ajeitar o problema da sala não ser direcionada ao criador
+           
 
             const aluno = await Aluno.create(body)
             response.status(201)
 
-            const matriculaAluno  = params.matricula
+            const matriculaAluno = params.matricula
             await matriculaAluno.findByOrFail(matricula)
             if (matriculaAluno != matricula){
                 if(dispo >= capacidade)
@@ -84,5 +85,5 @@ import Aluno from 'app/Models/Aluno'
                     Message: 'Aluno já esta na sala'
                 }
             }
-        }
+        } */
 }
