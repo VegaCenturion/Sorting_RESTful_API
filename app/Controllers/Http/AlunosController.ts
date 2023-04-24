@@ -19,8 +19,6 @@ export default class AlunosController {
             Message:'Aluno inserido com sucesso',
             data: aluno
         }
-
-        
     }
     public async index() {
         const alunos = await Aluno.all()

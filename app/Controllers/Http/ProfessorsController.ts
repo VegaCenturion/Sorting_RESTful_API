@@ -26,7 +26,6 @@ export default class ProfessorsController {
     public async show({params}:HttpContextContract){
     
         const professores = await Professor.findOrFail(params.id)
-        await professores.delete() 
         return{
             msg:'Cadastro excluido com sucesso',
             data: professores,
